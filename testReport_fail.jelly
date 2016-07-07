@@ -1,0 +1,147 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define">
+ <body style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+  <j:set var="spc" value="&amp;nbsp;&amp;nbsp;" />
+  <!-- GENERAL INFO -->
+  <table style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+   <tr>
+    <td align="right" style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     <j:choose>
+      <j:when test="${build.result=='SUCCESS'}">
+       <img src="${rooturl}static/e59dfe28/images/32x32/blue.gif">
+       </img>
+      </j:when>
+      <j:when test="${build.result=='FAILURE'}">
+       <img src="${rooturl}static/e59dfe28/images/32x32/red.gif">
+       </img>
+      </j:when>
+      <j:otherwise>
+       <img src="${rooturl}static/e59dfe28/images/32x32/yellow.gif">
+       </img>
+      </j:otherwise>
+     </j:choose>
+    </td>
+    <td valign="center" style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     <b style="font-size: 200%;">
+      TESTRUN ${build.result}
+     </b>
+    </td>
+   </tr>
+   <tr>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     Project:
+    </td>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     ${project.name}
+    </td>
+   </tr>
+   <tr>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     Number:
+    </td>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     ${build.number}
+    </td>
+   </tr>   
+   <tr>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     Date of run:
+    </td>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     ${it.timestampString}
+    </td>
+   </tr>
+   <tr>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     Test duration:
+    </td>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     ${build.durationString}
+    </td>
+   </tr>
+   <tr>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     Build URL:
+    </td>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     <a href="${rooturl}${build.url}">
+      ${rooturl}${build.url}
+     </a>
+    </td>
+   </tr>
+   <tr>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     Test report:
+    </td>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     <a href="http://jenkins.corp.mama.cn/jenkins/job/${project.name}/${build.number}/testReport/">
+      TestReport
+     </a>
+    </td>
+   </tr>
+    <tr>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     Console logs:
+    </td>
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+     <a href="${rooturl}${build.url}console">
+      Console
+     </a>
+    </td>
+   </tr>
+  </table>
+  <br />
+  
+  <div style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+      <j:set var="healthIconSize" value="16x16" />
+      <j:set var="healthReports" value="${project.buildHealthReports}" />
+      <j:if test="${healthReports!=null}">
+	  <b style="font-size: 160%;">Health Report</b>
+	  <br />
+        <table>
+          <tr>
+            <th>W</th>
+            <th>Description</th>
+            <th>Score</th>
+          </tr>
+          <j:forEach var="healthReport" items="${healthReports}">
+            <tr>
+              <td>
+                <img src="${rooturl}${healthReport.getIconUrl(healthIconSize)}" />
+              </td>
+              <td>${healthReport.description}</td>
+              <td>${healthReport.score}</td>
+            </tr>
+          </j:forEach>
+        </table>
+        <br />
+      </j:if>
+    </div>
+	
+
+  <j:set var="junitResultList" value="${it.JUnitTestResult}" />
+    <j:if test="${build.result!='SUCCESS'}">
+	  <div style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+        <b style="font-size: 160%;">Failed Testcase Report</b>
+		<br />
+        <table style="border: 1px solid black; border-collapse:collapse;">
+          <tr>
+            <th style="border: 1px solid black; border-collapse:collapse;">Testcase</th>
+          </tr>
+<j:forEach var="junitResult" items="${it.JUnitTestResult}">
+            <j:forEach var="packageResult" items="${junitResult.getChildren()}">
+              <j:forEach var="failed_test" items="${packageResult.getFailedTests()}">
+                <tr>
+                  <td style="color:red;" colspan="5">
+                    <tt>${failed_test.getFullName()}</tt>
+                  </td>
+                </tr>
+              </j:forEach>
+            </j:forEach>
+          </j:forEach>
+        </table>
+		<br />
+        <br />
+      </div>
+    </j:if>
+ </body>
+</j:jelly>
