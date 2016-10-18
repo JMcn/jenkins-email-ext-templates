@@ -35,18 +35,18 @@
     </td>
    </tr>
    <tr>
-    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black; font-weight:900">
      Describe:
     </td>
-    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black; font-weight:900">
      ${project.description}
     </td>
    </tr>
    <tr>
-    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black; font-weight:900">
      Version:
     </td>
-    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
+    <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black; font-weight:900">
      ${build.environment.version}
     </td>
    </tr>    
