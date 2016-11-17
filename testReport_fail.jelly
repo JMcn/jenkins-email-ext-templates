@@ -55,7 +55,7 @@
      Number:
     </td>
     <td style="font-family: Verdana, Helvetica, sans serif; font-size: 11px; color: black">
-     ${build.number}
+     ${build.displayName}
     </td>
    </tr>   
    <tr>
