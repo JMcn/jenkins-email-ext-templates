@@ -126,17 +126,17 @@
                   <b>${packageResult.getPassCount()+packageResult.getFailCount()+packageResult.getSkipCount()}</b>
                 </td>
               </tr>
-              <j:forEach var="passed_test" items="${packageResult.getPassedTests()}">
-                <tr>
-                  <td style="color:green;" colspan="5">
-                    <tt>${passed_test.getFullName()}</tt>
-                  </td>
-                </tr>
-              </j:forEach>
               <j:forEach var="failed_test" items="${packageResult.getFailedTests()}">
                 <tr>
                   <td style="color:red;" colspan="5">
                     <tt>${failed_test.getFullName()}</tt>
+                  </td>
+                </tr>
+              </j:forEach>
+              <j:forEach var="passed_test" items="${packageResult.getPassedTests()}">
+                <tr>
+                  <td style="color:green;" colspan="5">
+                    <tt>${passed_test.getFullName()}</tt>
                   </td>
                 </tr>
               </j:forEach>
